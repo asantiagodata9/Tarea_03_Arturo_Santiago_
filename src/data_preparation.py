@@ -22,7 +22,9 @@ def handle_missing(features):
     features['Exterior1st'] = features['Exterior1st'].fillna(features['Exterior1st'].mode()[0])
     features['Exterior2nd'] = features['Exterior2nd'].fillna(features['Exterior2nd'].mode()[0])
     features['SaleType'] = features['SaleType'].fillna(features['SaleType'].mode()[0])
-    features['MSZoning'] = features.groupby('MSSubClass')['MSZoning'].transform(lambda x: x.fillna(x.mode()[0]))
+    features['MSZoning'] = (features.groupby('MSSubClass')
+                        ['MSZoning']
+                        .transform(lambda x: x.fillna(x.mode()[0])))
     features["PoolQC"] = features["PoolQC"].fillna("None")
     for col in ('GarageYrBlt', 'GarageArea', 'GarageCars'):
         features[col] = features[col].fillna(0)
@@ -30,7 +32,9 @@ def handle_missing(features):
         features[col] = features[col].fillna('None')
     for col in ('BsmtQual', 'BsmtCond', 'BsmtExposure', 'BsmtFinType1', 'BsmtFinType2'):
         features[col] = features[col].fillna('None')
-    features['LotFrontage'] = features.groupby('Neighborhood')['LotFrontage'].transform(lambda x: x.fillna(x.median()))
+    features['LotFrontage'] = (features.groupby('Neighborhood')
+                            ['LotFrontage']
+                            .transform(lambda x: x.fillna(x.median())))
     objects_cols = features.select_dtypes(include=['object']).columns
     numeric_cols = features.select_dtypes(include=['number']).columns
     features[objects_cols] = features[objects_cols].fillna('None')
@@ -45,7 +49,8 @@ def prepare_data(raw_train_path, raw_test_path):
         raw_test_path (str): Ruta al archivo de datos de prueba crudos.
     
     Returns:
-        tuple: Tupla conteniendo DataFrames de características de entrenamiento, características de prueba y etiquetas de entrenamiento.
+        tuple: Tupla conteniendo DataFrames de características de entrenamiento, 
+        características de prueba y etiquetas de entrenamiento.
     """
     train_data = pd.read_csv(raw_train_path)
     test_data = pd.read_csv(raw_test_path)
