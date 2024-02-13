@@ -1,12 +1,8 @@
-# prep.py
-from src.data_preparation import load_data, preprocess_data, save_data
+
+from src.data_preparation import prepare_data
 
 if __name__ == "__main__":
-    # Asume que ya tienes definidas las rutas de los archivos
-    raw_data_path = 'data/raw/train.csv'
-    processed_data_path = 'data/prep/train_processed.csv'
-    
-    df_raw = load_data(raw_data_path)
-    df_processed = preprocess_data(df_raw)
-    save_data(df_processed, processed_data_path)
-    
+    train_features, test_features, train_labels = prepare_data('data/raw/train.csv', 'data/raw/test.csv')
+    train_features.to_csv('data/prep/train_features.csv', index=False)
+    test_features.to_csv('data/prep/test_features.csv', index=False)
+    train_labels.to_csv('data/prep/train_labels.csv', index=False)
