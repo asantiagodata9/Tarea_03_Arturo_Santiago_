@@ -1,7 +1,8 @@
 
 """Módulo para la inferencia del modelo.
 
-Este módulo contiene funciones para cargar un modelo entrenado y realizar inferencias en nuevos datos.
+Este módulo contiene funciones para cargar un modelo entrenado 
+y realizar inferencias en nuevos datos.
 """
 
 import pandas as pd
