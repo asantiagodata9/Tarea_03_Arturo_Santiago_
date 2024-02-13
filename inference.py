@@ -1,4 +1,3 @@
-
 from src.model_inference import make_predictions
 
 if __name__ == "__main__":
