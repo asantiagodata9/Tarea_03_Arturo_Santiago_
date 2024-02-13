@@ -1,0 +1,22 @@
+Folder PATH listing for volume OS
+Volume serial number is F80B-5CE9
+C:.
+|   .gitignore
+|   estructura_del_proyecto.txt
+|   inference.py
+|   prep.py
+|   README.md
+|   train.py
+|   
++---notebooks
+|       01_tarea_Arturo_Santiago.ipynb
+|       
++---raw
+|       test.csv
+|       train.csv
+|       
+\---src
+        data_preparation.py
+        __init__,py
+        
+python --version
