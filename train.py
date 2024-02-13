@@ -43,4 +43,3 @@ if __name__ == "__main__":
     # Guardar el modelo entrenado
     joblib.dump(model, MODEL_PATH)
     print(f"Modelo guardado en {MODEL_PATH}")
-    
