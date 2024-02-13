@@ -1,5 +1,3 @@
-Folder PATH listing for volume OS
-Volume serial number is F80B-5CE9
 C:.
 |   .gitignore
 |   estructura_del_proyecto.txt
