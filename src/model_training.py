@@ -19,7 +19,10 @@ def train_model(train_features_path, train_labels_path, cat_features, model_path
     """
     train_features = pd.read_csv(train_features_path)
     train_labels = pd.read_csv(train_labels_path)
-    model = CatBoostRegressor(iterations=1000, learning_rate=0.1, depth=6, loss_function='RMSE', verbose=200)
+    model = CatBoostRegressor(iterations=1000,
+                              learning_rate=0.1,
+                              depth=6,
+                              loss_function='RMSE',
+                              verbose=200)
     model.fit(train_features, train_labels, cat_features=cat_features)
     joblib.dump(model, model_path)
-
