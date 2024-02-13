@@ -1,4 +1,0 @@
-tree > tree_structure.txt
-git add tree_structure.txt
-git commit -m "Agregar el arbol de directorios"
-git push origin main
