@@ -8,6 +8,22 @@ para el entrenamiento y la inferencia de modelos.
 
 import pandas as pd
 
+def load_data(train_path, test_path):
+    """
+    Carga los datos de entrenamiento y prueba desde archivos CSV.
+
+    Parámetros:
+    - train_path (str): Ruta del archivo CSV que contiene los datos de entrenamiento.
+    - test_path (str): Ruta del archivo CSV que contiene los datos de prueba.
+
+    Retorna:
+    - train_data (pandas.DataFrame): DataFrame que contiene los datos de entrenamiento.
+    - test_data (pandas.DataFrame): DataFrame que contiene los datos de prueba.
+    """
+    train_data = pd.read_csv(train_path)
+    test_data = pd.read_csv(test_path)
+    return train_data, test_data
+
 def handle_missing(features):
     """Maneja los valores faltantes en el conjunto de características.
     
@@ -52,7 +68,7 @@ def handle_missing(features):
     
     return features
 
-def prepare_data(raw_train_path, raw_test_path):
+def prepare_data(train_path='data/train.csv', test_path='data/test.csv'):
     """Prepara los datos para el entrenamiento y la prueba.
     
     Args:
@@ -63,22 +79,17 @@ def prepare_data(raw_train_path, raw_test_path):
         tuple: Tupla conteniendo DataFrames de características de entrenamiento, 
                características de prueba y etiquetas de entrenamiento.
     """
-    # Leer los datos de entrenamiento y prueba
-    train_data = pd.read_csv(raw_train_path)
-    test_data = pd.read_csv(raw_test_path)
-
-    # Separar las etiquetas de entrenamiento
-    train_labels = train_data['SalePrice'].reset_index(drop=True)
-    train_features = train_data.drop(['SalePrice'], axis=1)
-    test_features = test_data
-
-    # Concatenar características de entrenamiento y prueba para aplicar la misma transformación
-    all_features = pd.concat([train_features, test_features]).reset_index(drop=True)
-    all_features = handle_missing(all_features)
-
-    # Dividir las características de nuevo en entrenamiento y prueba
-    num_train = train_data.shape[0]
-    train_features = all_features[:num_train]
-    test_features = all_features[num_train:]
+    # Cargar los datos de entrenamiento y prueba
+    train_data, test_data = load_data(train_path, test_path)
     
-    return train_features, test_features, train_labels
+    # Combinar características de entrenamiento y prueba
+    all_features = (
+        pd.concat([train_data.drop(['SalePrice'], axis=1), test_data])
+        .reset_index(drop=True)
+    )
+    
+    # Manejar valores faltantes en las características combinadas
+    all_features = handle_missing(all_features)
+    
+    # Guardar las características preparadas en un archivo CSV
+    all_features.to_csv('data/prep/all_features.csv', index=False)
