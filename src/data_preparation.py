@@ -33,7 +33,8 @@ def handle_missing(features):
     Returns:
         pd.DataFrame: DataFrame con los valores faltantes tratados.
     """
-    # Aquí se rellenan los valores faltantes para cada columna específica con un valor predeterminado o un cálculo basado en otros datos.
+    # Aquí se rellenan los valores faltantes para cada columna específica 
+    # con un valor predeterminado o un cálculo basado en otros datos.
     features['Functional'] = features['Functional'].fillna('Typ')
     features['Electrical'] = features['Electrical'].fillna("SBrkr")
     features['KitchenQual'] = features['KitchenQual'].fillna("TA")
@@ -45,7 +46,8 @@ def handle_missing(features):
                          .transform(lambda x: x.fillna(x.mode()[0])))
     features["PoolQC"] = features["PoolQC"].fillna("None")
 
-    # Para columnas que representan características de garaje, se rellenan los faltantes con 'None' o 0, dependiendo de si son categóricas o numéricas.
+    # Para columnas que representan características de garaje, se rellenan los faltantes con 'None' o 0,
+    # dependiendo de si son categóricas o numéricas.
     for col in ('GarageYrBlt', 'GarageArea', 'GarageCars'):
         features[col] = features[col].fillna(0)
     for col in ['GarageType', 'GarageFinish', 'GarageQual', 'GarageCond']:
@@ -60,12 +62,12 @@ def handle_missing(features):
                             ['LotFrontage']
                             .transform(lambda x: x.fillna(x.median())))
 
-    # Para el resto de columnas, se rellenan los faltantes con 'None' o 0 dependiendo de si son categóricas o numéricas.
+    # Para el resto de columnas, se rellenan los faltantes con 'None' o 0,
+    # dependiendo de si son categóricas o numéricas.
     objects_cols = features.select_dtypes(include=['object']).columns
     numeric_cols = features.select_dtypes(include=['number']).columns
     features[objects_cols] = features[objects_cols].fillna('None')
     features[numeric_cols] = features[numeric_cols].fillna(0)
-    
     return features
 
 def prepare_data(train_path='data/train.csv', test_path='data/test.csv'):
@@ -81,15 +83,12 @@ def prepare_data(train_path='data/train.csv', test_path='data/test.csv'):
     """
     # Cargar los datos de entrenamiento y prueba
     train_data, test_data = load_data(train_path, test_path)
-    
     # Combinar características de entrenamiento y prueba
     all_features = (
         pd.concat([train_data.drop(['SalePrice'], axis=1), test_data])
         .reset_index(drop=True)
     )
-    
     # Manejar valores faltantes en las características combinadas
     all_features = handle_missing(all_features)
-    
     # Guardar las características preparadas en un archivo CSV
     all_features.to_csv('data/prep/all_features.csv', index=False)
