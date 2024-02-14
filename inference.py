@@ -16,8 +16,8 @@ Requisitos:
       las rutas especificadas.
 """
 
-from src.model_inference import load_model, load_inference_data, make_predictions
 import pandas as pd  # Asegurar que pandas está importado
+from src.model_inference import load_model, load_inference_data, make_predictions
 
 # Rutas de archivos y directorios
 MODEL_PATH = 'data/model/model.joblib'
