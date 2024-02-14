@@ -1,5 +1,6 @@
 
-"""Módulo para la preparación de los datos.
+"""
+Módulo para la preparación de los datos.
 
 Este módulo contiene funciones para manejar valores faltantes y preparar los datos
 para el entrenamiento y la inferencia de modelos.
@@ -16,6 +17,7 @@ def handle_missing(features):
     Returns:
         pd.DataFrame: DataFrame con los valores faltantes tratados.
     """
+    # Aquí se rellenan los valores faltantes para cada columna específica con un valor predeterminado o un cálculo basado en otros datos.
     features['Functional'] = features['Functional'].fillna('Typ')
     features['Electrical'] = features['Electrical'].fillna("SBrkr")
     features['KitchenQual'] = features['KitchenQual'].fillna("TA")
@@ -23,22 +25,31 @@ def handle_missing(features):
     features['Exterior2nd'] = features['Exterior2nd'].fillna(features['Exterior2nd'].mode()[0])
     features['SaleType'] = features['SaleType'].fillna(features['SaleType'].mode()[0])
     features['MSZoning'] = (features.groupby('MSSubClass')
-                        ['MSZoning']
-                        .transform(lambda x: x.fillna(x.mode()[0])))
+                         ['MSZoning']
+                         .transform(lambda x: x.fillna(x.mode()[0])))
     features["PoolQC"] = features["PoolQC"].fillna("None")
+
+    # Para columnas que representan características de garaje, se rellenan los faltantes con 'None' o 0, dependiendo de si son categóricas o numéricas.
     for col in ('GarageYrBlt', 'GarageArea', 'GarageCars'):
         features[col] = features[col].fillna(0)
     for col in ['GarageType', 'GarageFinish', 'GarageQual', 'GarageCond']:
         features[col] = features[col].fillna('None')
+
+    # Lo mismo se aplica para características del sótano.
     for col in ('BsmtQual', 'BsmtCond', 'BsmtExposure', 'BsmtFinType1', 'BsmtFinType2'):
         features[col] = features[col].fillna('None')
+
+    # Para 'LotFrontage', se rellena con la mediana del vecindario correspondiente.
     features['LotFrontage'] = (features.groupby('Neighborhood')
                             ['LotFrontage']
                             .transform(lambda x: x.fillna(x.median())))
+
+    # Para el resto de columnas, se rellenan los faltantes con 'None' o 0 dependiendo de si son categóricas o numéricas.
     objects_cols = features.select_dtypes(include=['object']).columns
     numeric_cols = features.select_dtypes(include=['number']).columns
     features[objects_cols] = features[objects_cols].fillna('None')
     features[numeric_cols] = features[numeric_cols].fillna(0)
+    
     return features
 
 def prepare_data(raw_train_path, raw_test_path):
@@ -50,16 +61,24 @@ def prepare_data(raw_train_path, raw_test_path):
     
     Returns:
         tuple: Tupla conteniendo DataFrames de características de entrenamiento, 
-        características de prueba y etiquetas de entrenamiento.
+               características de prueba y etiquetas de entrenamiento.
     """
+    # Leer los datos de entrenamiento y prueba
     train_data = pd.read_csv(raw_train_path)
     test_data = pd.read_csv(raw_test_path)
+
+    # Separar las etiquetas de entrenamiento
     train_labels = train_data['SalePrice'].reset_index(drop=True)
     train_features = train_data.drop(['SalePrice'], axis=1)
     test_features = test_data
+
+    # Concatenar características de entrenamiento y prueba para aplicar la misma transformación
     all_features = pd.concat([train_features, test_features]).reset_index(drop=True)
     all_features = handle_missing(all_features)
+
+    # Dividir las características de nuevo en entrenamiento y prueba
     num_train = train_data.shape[0]
     train_features = all_features[:num_train]
     test_features = all_features[num_train:]
+    
     return train_features, test_features, train_labels
