@@ -15,23 +15,24 @@ Requisitos:
     - Los archivos de entrada y salida deben estar correctamente ubicados en
       las rutas especificadas.
 """
-# inference.py
+
 from src.model_inference import load_model, load_inference_data, make_predictions
+import pandas as pd  # Asegurar que pandas está importado
 
 # Rutas de archivos y directorios
-model_path = 'data/model/model.joblib'
-inference_data_path = 'data/inference/inference_data.csv'
-predictions_path = 'data/predictions/predictions.csv'
+MODEL_PATH = 'data/model/model.joblib'
+INFERENCE_DATA_PATH = 'data/inference/inference_data.csv'
+PREDICTIONS_PATH = 'data/predictions/predictions.csv'
 
 # Cargar el modelo entrenado
-model = load_model(model_path)
+model = load_model(MODEL_PATH)
 
 # Cargar los datos de inferencia
-inference_data = load_inference_data(inference_data_path)
+inference_data = load_inference_data(INFERENCE_DATA_PATH)
 
 # Realizar predicciones
 predictions = make_predictions(model, inference_data)
 
 # Guardar las predicciones en un archivo CSV
-pd.DataFrame(predictions, columns=['Predictions']).to_csv(predictions_path, index=False)
-print(f'Predictions saved to: {predictions_path}')
+pd.DataFrame(predictions, columns=['Predictions']).to_csv(PREDICTIONS_PATH, index=False)
+print(f'Predictions saved to: {PREDICTIONS_PATH}')
