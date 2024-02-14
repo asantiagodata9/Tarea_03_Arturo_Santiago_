@@ -3,8 +3,10 @@ Script para entrenar un modelo de aprendizaje automático utilizando caracterís
 
 Este script importa la función 'train_model' del módulo 'src.model_training'
 para entrenar un modelo en los datos proporcionados.
-Requiere las rutas al archivo CSV de características de entrenamiento, al archivo CSV de etiquetas de entrenamiento,
-una lista de nombres de características categóricas, y la ruta deseada para guardar el modelo entrenado.
+Requiere las rutas al archivo CSV de características de entrenamiento,
+al archivo CSV de etiquetas de entrenamiento,
+una lista de nombres de características categóricas, 
+y la ruta deseada para guardar el modelo entrenado.
 
 Uso:
     $ python train.py
@@ -21,8 +23,10 @@ Devuelve:
     Ninguno
 
 Nota:
-    - Asegúrese de que la función 'train_model' de 'src.model_training' esté implementada correctamente.
-    - Asegúrese de que las rutas a los archivos de características y etiquetas de entrenamiento sean correctas.
+    - Asegúrese de que la función 'train_model' de 'src.model_training' 
+    esté implementada correctamente.
+    - Asegúrese de que las rutas a los archivos de características y
+    etiquetas de entrenamiento sean correctas.
     - Actualice 'cat_features' con los nombres reales de las características categóricas.
 
 """
