@@ -12,20 +12,20 @@ Variables:
 - train_features (pandas.DataFrame): DataFrame que contiene las características de entrenamiento.
 - cat_features (list): Lista de nombres de características categóricas.
 """
-# train.py
+
 from src.model_training import load_prepared_data, train_model, get_categorical_features
 
 # Rutas de archivos y directorios
-prepared_data_path = 'data/prep/all_features.csv'
-train_data_path = 'data/train.csv'
-model_path = 'data/model/model.joblib'  # Asegurarse de que corresponde a model.joblib
+PREPARED_DATA_PATH = 'data/prep/all_features.csv'
+TRAIN_DATA_PATH = 'data/train.csv'
+MODEL_PATH = 'data/model/model.joblib'  # Asegurarse de que corresponda a model.joblib
 
 # Cargar los datos preparados y las etiquetas de entrenamiento
-train_data = load_prepared_data(prepared_data_path)
-train_labels = load_prepared_data(train_data_path)['SalePrice']
+train_data = load_prepared_data(PREPARED_DATA_PATH)
+train_labels = load_prepared_data(TRAIN_DATA_PATH)['SalePrice']
 # Asegurarse de que solo se usan las filas correspondientes a train_labels para train_features
 train_features = train_data.iloc[:len(train_labels), :]
 cat_features = get_categorical_features(train_features)
 
 # Entrenar el modelo y guardar en la ruta especificada
-train_model(train_features, train_labels, cat_features, model_path=model_path)
+train_model(train_features, train_labels, cat_features, model_path=MODEL_PATH)
