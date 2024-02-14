@@ -1,6 +1,7 @@
 """
 Este script entrena un modelo utilizando datos preparados y etiquetas de entrenamiento.
-Carga datos preparados desde un archivo CSV, obtiene las características categóricas y entrena un modelo CatBoostRegressor.
+Carga datos preparados desde un archivo CSV, obtiene las características categóricas
+y entrena un modelo CatBoostRegressor.
 
 Variables:
 - prepared_data_path (str): Ruta del archivo CSV que contiene los datos preparados.
