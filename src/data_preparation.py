@@ -33,7 +33,7 @@ def handle_missing(features):
     Returns:
         pd.DataFrame: DataFrame con los valores faltantes tratados.
     """
-    # Aquí se rellenan los valores faltantes para cada columna específica 
+    # Aquí se rellenan los valores faltantes para cada columna específica
     # con un valor predeterminado o un cálculo basado en otros datos.
     features['Functional'] = features['Functional'].fillna('Typ')
     features['Electrical'] = features['Electrical'].fillna("SBrkr")
@@ -46,7 +46,8 @@ def handle_missing(features):
                          .transform(lambda x: x.fillna(x.mode()[0])))
     features["PoolQC"] = features["PoolQC"].fillna("None")
 
-    # Para columnas que representan características de garaje, se rellenan los faltantes con 'None' o 0,
+    # Para columnas que representan características de garaje,
+    # se rellenan los faltantes con 'None' o 0,
     # dependiendo de si son categóricas o numéricas.
     for col in ('GarageYrBlt', 'GarageArea', 'GarageCars'):
         features[col] = features[col].fillna(0)
