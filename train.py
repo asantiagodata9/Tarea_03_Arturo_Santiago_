@@ -13,12 +13,20 @@ Variables:
 - cat_features (list): Lista de nombres de características categóricas.
 """
 
+import yaml
 from src.model_training import load_prepared_data, train_model, get_categorical_features
 
 # Rutas de archivos y directorios
 PREPARED_DATA_PATH = 'data/prep/all_features.csv'
 TRAIN_DATA_PATH = 'data/train.csv'
 MODEL_PATH = 'data/model/model.joblib'  # Asegurarse de que corresponda a model.joblib
+
+# Cargar el archivo de configuración YAML
+with open('config.yml', 'r') as file:
+    config = yaml.safe_load(file)
+
+# Extraer los hiperparámetros para el modelo CatBoostRegressor
+model_params = config['catboost_regressor_hyperparameters']
 
 # Cargar los datos preparados y las etiquetas de entrenamiento
 train_data = load_prepared_data(PREPARED_DATA_PATH)
