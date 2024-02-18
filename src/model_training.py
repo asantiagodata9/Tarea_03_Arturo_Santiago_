@@ -4,8 +4,9 @@ CatBoostRegressor y obtener características categóricas.
 
 Funciones:
 - load_prepared_data(path): Carga los datos preparados desde un archivo CSV.
-- train_model(train_features, train_labels, cat_features, model_path='data/model/model.joblib'):
-Entrena un modelo CatBoostRegressor y lo guarda en disco.
+- train_model(train_features, train_labels, cat_features, model_params, 
+model_path='data/model/model.joblib'):
+Entrena un modelo CatBoostRegressor con parámetros dados y lo guarda en disco.
 - get_categorical_features(train_features): 
 Obtiene las características categóricas de un DataFrame.
 """
@@ -26,28 +27,26 @@ def load_prepared_data(path):
     """
     return pd.read_csv(path)
 
-def train_model(train_features, train_labels, cat_features, model_path='data/model/model.joblib'):
+def train_model(train_features, train_labels, cat_features, model_params, model_path='data/model/model.joblib'):
     """
-    Entrena un modelo CatBoostRegressor y lo guarda en disco.
+    Entrena un modelo CatBoostRegressor con parámetros dados y lo guarda en disco.
 
     Parámetros:
     - train_features (pandas.DataFrame): 
     DataFrame que contiene las características de entrenamiento.
     - train_labels (pandas.Series): 
     Series que contiene las etiquetas de entrenamiento.
-    - cat_features (list): L
-    ista de nombres de características categóricas.
+    - cat_features (list): 
+    Lista de nombres de características categóricas.
+    - model_params (dict): 
+    Diccionario de hiperparámetros para el modelo.
     - model_path (str): 
     Ruta donde se guardará el modelo.
 
     Retorna:
     - None
     """
-    model = CatBoostRegressor(iterations=1000,
-                              learning_rate=0.1,
-                              depth=6,
-                              loss_function='RMSE',
-                              verbose=200)
+    model = CatBoostRegressor(**model_params)
     model.fit(train_features, train_labels, cat_features=cat_features)
     joblib.dump(model, model_path)  # Guardar el modelo con joblib
     print("Model trained and saved at:", model_path)
