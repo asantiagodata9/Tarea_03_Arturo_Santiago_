@@ -85,11 +85,11 @@ def prepare_data(train_path='data/train.csv', test_path='data/test.csv'):
     # Cargar los datos de entrenamiento y prueba
     train_data, test_data = load_data(train_path, test_path)
     # Combinar características de entrenamiento y prueba
-    all_features = (
+    processed_data = (
         pd.concat([train_data.drop(['SalePrice'], axis=1), test_data])
         .reset_index(drop=True)
     )
     # Manejar valores faltantes en las características combinadas
-    all_features = handle_missing(all_features)
+    processed_data = handle_missing(processed_data)
     # Guardar las características preparadas en un archivo CSV
-    all_features.to_csv('data/prep/all_features.csv', index=False)
+    processed_data.to_csv(output_path, index=False)
