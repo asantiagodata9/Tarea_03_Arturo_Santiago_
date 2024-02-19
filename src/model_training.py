@@ -27,7 +27,11 @@ def load_prepared_data(path):
     """
     return pd.read_csv(path)
 
-def train_model(train_features, train_labels, cat_features, model_params, model_path='data/model/model.joblib'):
+def train_model(train_features,
+                train_labels,
+                cat_features,
+                model_params,
+                model_path='data/model/model.joblib'):
     """
     Entrena un modelo CatBoostRegressor con parámetros dados y lo guarda en disco.
 
