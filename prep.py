@@ -28,8 +28,9 @@ import argparse
 from data_preparation import prepare_data
 
 def main():
-    parser = argparse.ArgumentParser(description=
-                                     'Preparar datos para análisis o modelado de aprendizaje automático.')
+    parser = argparse.ArgumentParser(
+     description='Preparar datos para análisis o modelado de aprendizaje automático.'
+     )
     parser.add_argument('--train_path', type=str, required=True, help=
                         'Ruta del archivo de datos de entrenamiento crudos.')
     parser.add_argument('--test_path', type=str, required=True, help=
