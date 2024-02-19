@@ -1,38 +1,47 @@
-"""Módulo de inferencia para hacer predicciones con un modelo entrenado.
+"""
+Módulo de inferencia para hacer predicciones con un modelo entrenado.
 
-Este módulo carga un modelo de aprendizaje automático desde un archivo .joblib,
-lee datos de inferencia desde un archivo CSV, y escribe las predicciones del modelo
-a otro archivo CSV. Está diseñado para ser utilizado como un script independiente
-que facilita la aplicación de modelos entrenados a nuevos datos para generar
-predicciones.
+Este script permite cargar un modelo entrenado, leer datos de inferencia
+y escribir las predicciones a un archivo CSV.
+Las rutas al modelo, a los datos de inferencia y
+al archivo de predicciones son parametrizables a través de la línea de comandos.
 
 Ejemplo de uso:
-    $ python <nombre_de_este_archivo>.py
-
-Requisitos:
-    - El módulo 'model_inference' debe estar presente en el paquete 'src' y debe
-      contener la función 'make_predictions'.
-    - Los archivos de entrada y salida deben estar correctamente ubicados en
-      las rutas especificadas.
+  $ python inference.py --model_path data/model/model.joblib
+                        --inference_data_path data/inference/inference_data.csv
+                        --predictions_path data/predictions/predictions.csv
 """
 
-import pandas as pd  # Asegurar que pandas está importado
+import argparse
+import pandas as pd
 from src.model_inference import load_model, load_inference_data, make_predictions
 
-# Rutas de archivos y directorios
-MODEL_PATH = 'data/model/model.joblib'
-INFERENCE_DATA_PATH = 'data/inference/inference_data.csv'
-PREDICTIONS_PATH = 'data/predictions/predictions.csv'
+def main():
+    # Configurar el analizador de argumentos
+    parser = argparse.ArgumentParser(description='Realizar inferencia con un modelo entrenado.')
+    parser.add_argument('--model_path', type=str, required=True,
+                        help='Ruta al modelo entrenado.')
+    parser.add_argument('--inference_data_path', type=str, required=True,
+                        help='Ruta a los datos de inferencia.')
+    parser.add_argument('--predictions_path', type=str, required=True,
+                        help='Ruta al archivo para guardar las predicciones.')
 
-# Cargar el modelo entrenado
-model = load_model(MODEL_PATH)
+    args = parser.parse_args()
 
-# Cargar los datos de inferencia
-inference_data = load_inference_data(INFERENCE_DATA_PATH)
+    # Cargar el modelo entrenado
+    model = load_model(args.model_path)
 
-# Realizar predicciones
-predictions = make_predictions(model, inference_data)
+    # Cargar los datos de inferencia
+    inference_data = load_inference_data(args.inference_data_path)
 
-# Guardar las predicciones en un archivo CSV
-pd.DataFrame(predictions, columns=['Predictions']).to_csv(PREDICTIONS_PATH, index=False)
-print(f'Predictions saved to: {PREDICTIONS_PATH}')
+    # Realizar predicciones
+    predictions = make_predictions(model, inference_data)
+
+    # Guardar las predicciones en un archivo CSV
+    pd.DataFrame(predictions,
+                 columns=['Predictions']).to_csv(args.predictions_path, index=False)
+    print(f'Predictions saved to: {args.predictions_path}')
+
+if __name__ == '__main__':
+    main()
+    
