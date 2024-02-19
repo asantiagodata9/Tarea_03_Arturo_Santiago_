@@ -1,5 +1,5 @@
-
-"""Módulo para la inferencia del modelo.
+"""
+Módulo para la inferencia del modelo.
 
 Este módulo contiene funciones para cargar un modelo entrenado 
 y realizar inferencias en nuevos datos.
@@ -18,6 +18,7 @@ def load_model(model_path):
     Retorna:
     - model: Modelo cargado.
     """
+    # Utiliza joblib para cargar el modelo entrenado desde el disco
     return joblib.load(model_path)
 
 def load_inference_data(data_path):
@@ -30,6 +31,7 @@ def load_inference_data(data_path):
     Retorna:
     - DataFrame: Datos de inferencia cargados como un DataFrame de pandas.
     """
+    # Utiliza pandas para leer los datos de inferencia desde un archivo CSV
     return pd.read_csv(data_path)
 
 def make_predictions(model, data):
@@ -43,4 +45,5 @@ def make_predictions(model, data):
     Retorna:
     - array: Predicciones generadas por el modelo.
     """
+    # Utiliza el método predict del modelo para generar predicciones sobre los datos proporcionados
     return model.predict(data)
