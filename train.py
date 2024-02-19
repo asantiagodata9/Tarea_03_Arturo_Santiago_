@@ -1,3 +1,14 @@
+"""
+Este módulo es parte de un sistema de entrenamiento de modelos de machine learning.
+
+Permite entrenar un modelo CatBoostRegressor utilizando datos preparados 
+y configuraciones específicas definidas en un archivo YAML. 
+El usuario puede especificar las rutas de los archivos de datos preparados, los datos de
+entrenamiento con etiquetas, y la ubicación para guardar el modelo entrenado 
+a través de argumentos de línea de comandos. 
+Este enfoque facilita la automatización y la flexibilidad en el entrenamiento de modelos.
+"""
+
 import argparse
 import yaml
 from src.model_training import load_prepared_data, train_model, get_categorical_features
@@ -27,7 +38,7 @@ def main():
     parser.add_argument('--train_data_path',
                         type=str,
                         required=True,
-                        help='Ruta archivo CSV que contiene los datos de entrenamiento con etiquetas.')
+                        help='Ruta archivo CSV que con los datos de entrenamiento con etiquetas.')
     parser.add_argument('--model_path', type=str, required=True,
                         help='Ruta donde se guardará el modelo entrenado.')
 
