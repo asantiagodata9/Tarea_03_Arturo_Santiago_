@@ -71,16 +71,15 @@ def handle_missing(features):
     features[numeric_cols] = features[numeric_cols].fillna(0)
     return features
 
-def prepare_data(train_path='data/train.csv', test_path='data/test.csv'):
-    """Prepara los datos para el entrenamiento y la prueba.
-    
+def prepare_data(train_path, test_path, output_path):
+    """
+    Prepara los datos para el entrenamiento y la prueba, 
+    y guarda los datos procesados en output_path.
+
     Args:
-        raw_train_path (str): Ruta al archivo de datos de entrenamiento crudos.
-        raw_test_path (str): Ruta al archivo de datos de prueba crudos.
-    
-    Returns:
-        tuple: Tupla conteniendo DataFrames de características de entrenamiento, 
-               características de prueba y etiquetas de entrenamiento.
+        train_path (str): Ruta al archivo de datos de entrenamiento crudos.
+        test_path (str): Ruta al archivo de datos de prueba crudos.
+        output_path (str): Ruta donde se guardarán los datos procesados.
     """
     # Cargar los datos de entrenamiento y prueba
     train_data, test_data = load_data(train_path, test_path)

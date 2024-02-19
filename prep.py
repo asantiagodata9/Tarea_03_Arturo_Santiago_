@@ -1,18 +1,24 @@
 """Módulo de preparación de datos para análisis o modelado de aprendizaje automático.
 
-Este script utiliza la función 'prepare_data' del módulo 'data_preparation' para preparar datos crudos.
-Los usuarios pueden especificar las rutas de entrada para los archivos de datos de entrenamiento y prueba,
+Este script utiliza la función 'prepare_data' del módulo 'data_preparation'
+para preparar datos crudos.
+Los usuarios pueden especificar las rutas de entrada para los archivos
+de datos de entrenamiento y prueba,
 y la ruta de salida para guardar los datos procesados.
 
 Ejemplo de uso:
-    $ python prep.py --train_path <ruta_al_archivo_de_entrenamiento> --test_path <ruta_al_archivo_de_prueba> --output_path <ruta_para_guardar_datos_procesados>
+    $ python prep.py 
+    --train_path <ruta_al_archivo_de_entrenamiento> 
+    --test_path <ruta_al_archivo_de_prueba> 
+    --output_path <ruta_para_guardar_datos_procesados>
 """
 
 import argparse
 from data_preparation import prepare_data
 
 def main():
-    """Ejecuta la preparación de datos basándose en los argumentos de línea de comando proporcionados."""
+    """Ejecuta la preparación de datos basándose en los argumentos
+    de línea de comando proporcionados."""
     parser = argparse.ArgumentParser(
      description='Preparar datos para análisis o modelado de aprendizaje automático.'
      )
