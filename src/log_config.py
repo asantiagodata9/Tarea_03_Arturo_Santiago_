@@ -1,4 +1,11 @@
-# log_config.py
+"""
+Este módulo configura el logging para diferentes scripts del proyecto.
+
+Proporciona una función de utilidad para configurar un logger específico para cada script,
+incluyendo la configuración del nombre del archivo de log con un timestamp y el nivel de logging.
+El logger captura mensajes de debug y superiores y escribe en un archivo de log dentro del directorio 'logs'.
+"""
+
 import logging
 import os
 from datetime import datetime
@@ -29,4 +36,5 @@ def configure_logging(script_name):
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
 
-    logging.debug(f"Logging configurado para {script_name}.")
+    logging.debug("Logging configurado para %s.", script_name)
+    
