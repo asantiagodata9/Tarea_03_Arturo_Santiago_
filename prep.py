@@ -40,14 +40,19 @@ def main():
     args = parser.parse_args()
 
     # Inicio del proceso de preparación de datos
-    logging.info(f'Iniciando la preparación de datos desde {args.train_path} y {args.test_path}.')
+    logging.info('Iniciando la preparación de datos desde %s y %s.',
+                 args.train_path,
+                 args.test_path)
 
     try:
         # Llamar a la función prepare_data para preparar los datos
-        prepare_data(train_path=args.train_path, test_path=args.test_path, output_path=args.output_path)
-        logging.info(f'Datos procesados guardados correctamente en {args.output_path}.')
+        prepare_data(train_path=args.train_path,
+                     test_path=args.test_path,
+                     output_path=args.output_path)
+        logging.info('Datos procesados guardados correctamente en %s.',
+                     args.output_path)
     except Exception as e:
-        logging.error('Ocurrió un error durante la preparación de datos: %s', e)
+        logging.error('Ocurrió un error durante la preparación de datos: %s', str(e))
         raise
 
 if __name__ == '__main__':
