@@ -11,9 +11,11 @@ Este enfoque facilita la automatización y la flexibilidad en el entrenamiento d
 
 import argparse
 import yaml
+import logging
 from src.model_training import load_prepared_data, train_model, get_categorical_features
 from src.log_config import configure_logging
 
+# Configuración de logging para este script
 configure_logging('train')
 
 def main():
@@ -47,26 +49,35 @@ def main():
 
     args = parser.parse_args()
 
+    logging.info("Iniciando proceso de entrenamiento.")
+
     # Cargar el archivo de configuración YAML para obtener los hiperparámetros del modelo
+    logging.info("Cargando configuración del modelo desde %s.", args.config_path)    
     with open(args.config_path, 'r', encoding='utf-8') as file:
         config = yaml.safe_load(file)
+
+    logging.info("Configuración del modelo cargada correctamente.")
 
     # Extraer los hiperparámetros para el modelo CatBoostRegressor desde el archivo de configuración
     model_params = config['catboost_regressor_hyperparameters']
 
     # Cargar los datos preparados y las etiquetas de entrenamiento desde las rutas especificadas
+    logging.info("Cargando datos preparados desde %s.", args.prepared_data_path)
     train_data = load_prepared_data(args.prepared_data_path)
     train_labels = load_prepared_data(args.train_data_path)['SalePrice']
     train_features = train_data.iloc[:len(train_labels), :]
     cat_features = get_categorical_features(train_features)
+    logging.info("Datos preparados cargados correctamente.")
 
     # Entrenar el modelo con los datos, hiperparámetros, y características categóricas especificadas
     # Guardar el modelo entrenado en la ruta especificada
+    logging.info("Iniciando entrenamiento del modelo.")    
     train_model(train_features,
                 train_labels,
                 cat_features,
                 model_params,
                 model_path=args.model_path)
-
+    logging.info("Modelo entrenado y guardado en %s.", args.model_path)
+    
 if __name__ == '__main__':
     main()
