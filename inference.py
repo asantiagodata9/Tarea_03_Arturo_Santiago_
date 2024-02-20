@@ -14,9 +14,11 @@ Ejemplo de uso:
 
 import argparse
 import pandas as pd
+import logging
 from src.model_inference import load_model, load_inference_data, make_predictions
 from src.log_config import configure_logging
 
+# Configuración de logging para este script
 configure_logging('inference')
 
 def main():
@@ -38,19 +40,26 @@ def main():
 
     args = parser.parse_args()
 
+    logging.info("Iniciando proceso de inferencia.")
+
     # Cargar el modelo entrenado
+    logging.info("Cargando el modelo desde %s.", args.model_path)
     model = load_model(args.model_path)
 
     # Cargar los datos de inferencia
+    logging.info("Cargando datos de inferencia desde %s.", args.inference_data_path)
     inference_data = load_inference_data(args.inference_data_path)
 
     # Realizar predicciones
+    logging.info("Realizando predicciones.")
     predictions = make_predictions(model, inference_data)
 
     # Guardar las predicciones en un archivo CSV
+    logging.info("Guardando las predicciones en %s.", args.predictions_path)
     pd.DataFrame(predictions,
                  columns=['Predictions']).to_csv(args.predictions_path, index=False)
     print(f'Predictions saved to: {args.predictions_path}')
+    logging.info("Predicciones guardadas exitosamente. Proceso de inferencia completado.")
 
 if __name__ == '__main__':
     main()
