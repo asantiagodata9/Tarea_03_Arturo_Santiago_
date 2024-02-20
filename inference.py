@@ -17,6 +17,13 @@ import pandas as pd
 from src.model_inference import load_model, load_inference_data, make_predictions
 
 def main():
+    """
+    Ejecuta el proceso de inferencia utilizando un modelo entrenado.
+    
+    Este proceso incluye la carga del modelo especificado, la carga de los datos de inferencia,
+    la realización de predicciones sobre esos datos, y finalmente,
+    la escritura de las predicciones a un archivo CSV especificado por el usuario.
+    """
     # Configurar el analizador de argumentos
     parser = argparse.ArgumentParser(description='Realizar inferencia con un modelo entrenado.')
     parser.add_argument('--model_path', type=str, required=True,
