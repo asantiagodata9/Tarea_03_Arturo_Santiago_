@@ -9,24 +9,12 @@ a través de argumentos de línea de comandos.
 Este enfoque facilita la automatización y la flexibilidad en el entrenamiento de modelos.
 """
 
-import logging
-import os
 import argparse
 import yaml
 from src.model_training import load_prepared_data, train_model, get_categorical_features
+from src.log_config import configure_logging
 
-# Configuración del logger según lo especificado
-logging.basicConfig(
-    # Cambié la ruta a './logs/results.log' para seguir tu estructura de directorios
-    filename='./logs/results.log',
-    level=logging.DEBUG, # Nivel del logging
-    filemode='w', #Sobreescribir el archivo del log existente
-    format='%(name)s - %(levelname)s - %(message)s'
-)
-
-# Crear el directorio de logs si no existe
-if not os.path.exists('./logs'):
-    os.makedirs('./logs')
+configure_logging('train')
 
 def main():
     """

@@ -13,23 +13,11 @@ Ejemplo de uso:
     --output_path <ruta_para_guardar_datos_procesados>
 """
 
-import logging
-import os
 import argparse
 from data_preparation import prepare_data
+from src.log_config import configure_logging
 
-# Configuración del logger según lo especificado
-logging.basicConfig(
-    # Cambié la ruta a './logs/results.log' para seguir tu estructura de directorios
-    filename='./logs/results.log',
-    level=logging.DEBUG, # Nivel del logging
-    filemode='w', #Sobreescribir el archivo del log existente
-    format='%(name)s - %(levelname)s - %(message)s'
-)
-
-# Crear el directorio de logs si no existe
-if not os.path.exists('./logs'):
-    os.makedirs('./logs')
+configure_logging('prep')
 
 def main():
     """Ejecuta la preparación de datos basándose en los argumentos
