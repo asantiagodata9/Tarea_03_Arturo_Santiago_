@@ -12,9 +12,26 @@ Ejemplo de uso:
                         --predictions_path data/predictions/predictions.csv
 """
 
+import logging
+import os
+from datetime import datetime
 import argparse
 import pandas as pd
 from src.model_inference import load_model, load_inference_data, make_predictions
+
+# Configuración del logger según lo especificado
+logging.basicConfig(
+    # Cambié la ruta a './logs/results.log' para seguir tu estructura de directorios
+    filename='./logs/results.log',
+    level=logging.DEBUG, # Nivel del logging
+    filemode='w', #Sobreescribir el archivo del log existente
+    format='%(name)s - %(levelname)s - %(message)s'
+)
+
+# Crear el directorio de logs si no existe
+if not os.path.exists('./logs'):
+    os.makedirs('./logs')
+
 
 def main():
     """
