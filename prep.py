@@ -15,7 +15,6 @@ Ejemplo de uso:
 
 import logging
 import os
-from datetime import datetime
 import argparse
 from data_preparation import prepare_data
 

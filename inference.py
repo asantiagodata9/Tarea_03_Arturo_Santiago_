@@ -14,7 +14,6 @@ Ejemplo de uso:
 
 import logging
 import os
-from datetime import datetime
 import argparse
 import pandas as pd
 from src.model_inference import load_model, load_inference_data, make_predictions

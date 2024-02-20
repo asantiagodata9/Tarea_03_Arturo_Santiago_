@@ -11,7 +11,6 @@ Este enfoque facilita la automatización y la flexibilidad en el entrenamiento d
 
 import logging
 import os
-from datetime import datetime
 import argparse
 import yaml
 from src.model_training import load_prepared_data, train_model, get_categorical_features
