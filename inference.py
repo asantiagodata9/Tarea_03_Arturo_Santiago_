@@ -13,8 +13,8 @@ Ejemplo de uso:
 """
 
 import argparse
-import pandas as pd
 import logging
+import pandas as pd
 from src.model_inference import load_model, load_inference_data, make_predictions
 from src.log_config import configure_logging
 
