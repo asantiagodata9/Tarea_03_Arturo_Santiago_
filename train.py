@@ -10,8 +10,8 @@ Este enfoque facilita la automatización y la flexibilidad en el entrenamiento d
 """
 
 import argparse
-import yaml
 import logging
+import yaml
 from src.model_training import load_prepared_data, train_model, get_categorical_features
 from src.log_config import configure_logging
 
@@ -52,7 +52,7 @@ def main():
     logging.info("Iniciando proceso de entrenamiento.")
 
     # Cargar el archivo de configuración YAML para obtener los hiperparámetros del modelo
-    logging.info("Cargando configuración del modelo desde %s.", args.config_path)    
+    logging.info("Cargando configuración del modelo desde %s.", args.config_path)
     with open(args.config_path, 'r', encoding='utf-8') as file:
         config = yaml.safe_load(file)
 
@@ -71,7 +71,7 @@ def main():
 
     # Entrenar el modelo con los datos, hiperparámetros, y características categóricas especificadas
     # Guardar el modelo entrenado en la ruta especificada
-    logging.info("Iniciando entrenamiento del modelo.")    
+    logging.info("Iniciando entrenamiento del modelo.")
     train_model(train_features,
                 train_labels,
                 cat_features,
