@@ -78,6 +78,6 @@ def main():
                 model_params,
                 model_path=args.model_path)
     logging.info("Modelo entrenado y guardado en %s.", args.model_path)
-    
+
 if __name__ == '__main__':
     main()
