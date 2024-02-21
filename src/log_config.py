@@ -29,5 +29,6 @@ def configure_logging(script_name):
         filemode='w',
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
-    
+
     logging.debug("Logging configurado para %s.", script_name)
+    
