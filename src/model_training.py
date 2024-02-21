@@ -15,6 +15,7 @@ import logging
 import pandas as pd
 from catboost import CatBoostRegressor
 import joblib  # Importar joblib
+from src.utils import model_training_exception_handler
 
 @model_training_exception_handler
 def load_prepared_data(path):
