@@ -38,7 +38,7 @@ def handle_missing(features):
     Returns:
         pd.DataFrame: DataFrame con los valores faltantes tratados.
     """
-    
+
     # Registro inicial del número de valores faltantes por columna
     missing_values_count = features.isnull().sum()
     logging.debug("Valores faltantes por columna antes del tratamiento: %s", missing_values_count)
