@@ -15,7 +15,7 @@ Ejemplo de uso:
 
 import argparse
 import logging
-from data_preparation import prepare_data
+from src.data_preparation import prepare_data
 from src.log_config import configure_logging
 
 # Configuración de logging para este script
