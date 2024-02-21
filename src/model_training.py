@@ -11,10 +11,10 @@ Entrena un modelo CatBoostRegressor con parámetros dados y lo guarda en disco.
 Obtiene las características categóricas de un DataFrame.
 """
 
+import logging
 import pandas as pd
 from catboost import CatBoostRegressor
 import joblib  # Importar joblib
-import logging
 
 def load_prepared_data(path):
     """
