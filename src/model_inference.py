@@ -8,7 +8,9 @@ y realizar inferencias en nuevos datos.
 import logging
 import pandas as pd
 import joblib
+from src.utils import model_training_exception_handler
 
+@model_training_exception_handler
 def load_model(model_path):
     """
     Carga un modelo entrenado desde un archivo utilizando joblib.
@@ -25,6 +27,7 @@ def load_model(model_path):
     logging.debug("Modelo cargado exitosamente.")
     return model
 
+@model_training_exception_handler
 def load_inference_data(data_path):
     """
     Carga los datos de inferencia desde un archivo CSV.
@@ -43,6 +46,7 @@ def load_inference_data(data_path):
                   data.shape[1])
     return data
 
+@model_training_exception_handler
 def make_predictions(model, data):
     """
     Realiza predicciones utilizando el modelo proporcionado sobre los datos dados.
