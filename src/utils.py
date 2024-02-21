@@ -45,3 +45,16 @@ def exception_handler(func):
             raise
     return wrapper
  
+def model_training_exception_handler(func):
+    """Decorador para manejar excepciones específicas del entrenamiento de modelos."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as e:
+            logging.error("Error al ejecutar %s: %s. Verifique parámetros e integridad de los datos.",
+                          func.__name__, str(e),
+                          exc_info=True)
+            # Puedes decidir si quieres que el script se detenga o no
+            raise e  # Descomentar si deseas que el script se detenga al encontrar un error
+    return wrapper

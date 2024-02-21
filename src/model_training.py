@@ -16,6 +16,7 @@ import pandas as pd
 from catboost import CatBoostRegressor
 import joblib  # Importar joblib
 
+@model_training_exception_handler
 def load_prepared_data(path):
     """
     Carga los datos preparados desde un archivo CSV.
@@ -32,6 +33,7 @@ def load_prepared_data(path):
                   data.shape[1])
     return data
 
+@model_training_exception_handler
 def train_model(train_features,
                 train_labels,
                 cat_features,
@@ -65,6 +67,7 @@ def train_model(train_features,
     logging.debug("Modelo entrenado y guardado en %s.", model_path)
     print("Modelo entrenado y guardado en:", model_path)
 
+@model_training_exception_handler
 def get_categorical_features(train_features):
     """
     Obtiene las características categóricas de un DataFrame.
