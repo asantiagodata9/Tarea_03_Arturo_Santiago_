@@ -1,6 +1,7 @@
 # utils.py
 
 import logging
+import functools
 import pandas as pd
 
 def try_except_log(func):
@@ -26,5 +27,16 @@ def try_except_log(func):
             return result
         except Exception as e:
             logging.error("Error al ejecutar la función %s: %s", func.__name__, e, exc_info=True)
+            raise
+    return wrapper
+
+def exception_handler(func):
+    """Decorador para manejar excepciones y registrar errores."""
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as e:
+            logging.error(f"Error al ejecutar {func.__name__}: {e}", exc_info=True)
             raise
     return wrapper

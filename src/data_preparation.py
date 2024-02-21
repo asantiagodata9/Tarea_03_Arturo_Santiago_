@@ -8,7 +8,9 @@ para el entrenamiento y la inferencia de modelos.
 
 import logging
 import pandas as pd
+from src.utils import exception_handler
 
+@exception_handler
 def load_data(train_path, test_path):
     """
     Carga los datos de entrenamiento y prueba desde archivos CSV.
@@ -29,6 +31,7 @@ def load_data(train_path, test_path):
                   test_path, test_data.shape[0], test_data.shape[1])
     return train_data, test_data
 
+@exception_handler
 def handle_missing(features):
     """Maneja los valores faltantes en el conjunto de características.
     
@@ -87,6 +90,7 @@ def handle_missing(features):
 
     return features
 
+@exception_handler
 def prepare_data(train_path, test_path, output_path):
     """
     Prepara los datos para el entrenamiento y la prueba, 
