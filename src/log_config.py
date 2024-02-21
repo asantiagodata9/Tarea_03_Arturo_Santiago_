@@ -13,17 +13,16 @@ from datetime import datetime
 
 def configure_logging(script_name):
     """
-    Configura el logger para un script específico.
+    Configura el logging para un script dado con un archivo de log específico.
 
-    Crea un archivo de log en el directorio 'logs', nombrado con el script y el timestamp actual.
-    Establece el nivel de logging a DEBUG y asegura que todos los mensajes desde DEBUG en adelante
-    sean capturados y escritos en el archivo de log.
+    Crea un archivo de log en el directorio 'logs', nombrado con el nombre del script y
+    un timestamp, y configura el nivel de logging a DEBUG.
 
     Args:
         script_name (str): El nombre del script para el cual se está configurando el logging.
     """
     # Crear el directorio de logs si no existe
-    log_directory = os.path.join(os.getcwd(), 'logs')
+    log_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'logs'))
     if not os.path.exists(log_directory):
         os.makedirs(log_directory)
 
@@ -41,4 +40,3 @@ def configure_logging(script_name):
     )
 
     logging.debug("Logging configurado para %s.", script_name)
-    
