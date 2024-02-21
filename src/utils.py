@@ -1,4 +1,8 @@
 # utils.py
+"""
+Este módulo contiene utilidades y decoradores comunes para manejo de excepciones y
+otros propósitos generales en el proyecto.
+"""
 
 import logging
 import functools
@@ -37,6 +41,7 @@ def exception_handler(func):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            logging.error(f"Error al ejecutar {func.__name__}: {e}", exc_info=True)
+            logging.error("Error al ejecutar %s: %s", func.__name__, e, exc_info=True)
             raise
     return wrapper
+ 
