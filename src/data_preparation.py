@@ -8,7 +8,6 @@ para el entrenamiento y la inferencia de modelos.
 
 import logging
 import pandas as pd
-from src.log_config import configure_logging
 
 def load_data(train_path, test_path):
     """
@@ -24,9 +23,9 @@ def load_data(train_path, test_path):
     """
     train_data = pd.read_csv(train_path)
     test_data = pd.read_csv(test_path)
-    logging.debug("Datos de entrenamiento cargados de %s con %d filas y %d columnas", 
+    logging.debug("Datos de entrenamiento cargados de %s con %d filas y %d columnas",
                   train_path, train_data.shape[0], train_data.shape[1])
-    logging.debug("Datos de prueba cargados de %s con %d filas y %d columnas", 
+    logging.debug("Datos de prueba cargados de %s con %d filas y %d columnas",
                   test_path, test_data.shape[0], test_data.shape[1])
     return train_data, test_data
 
@@ -80,7 +79,7 @@ def handle_missing(features):
     numeric_cols = features.select_dtypes(include=['number']).columns
     features[objects_cols] = features[objects_cols].fillna('None')
     features[numeric_cols] = features[numeric_cols].fillna(0)
-    
+
     # Registro después del tratamiento de valores faltantes
     missing_values_count_post = features.isnull().sum()
     logging.debug("Valores faltantes por columna después del tratamiento: %s",
@@ -108,14 +107,14 @@ def prepare_data(train_path, test_path, output_path):
         pd.concat([train_data.drop(['SalePrice'], axis=1), test_data])
         .reset_index(drop=True)
     )
-    
+
     logging.debug("Datos combinados con %d filas y %d columnas",
                   processed_data.shape[0],
                   processed_data.shape[1])
-    
+
     # Manejar valores faltantes en las características combinadas
     processed_data = handle_missing(processed_data)
-    logging.info("Datos procesados guardados en %s. Tamaño final: %d filas y %d columnas", 
+    logging.info("Datos procesados guardados en %s. Tamaño final: %d filas y %d columnas",
                  output_path, processed_data.shape[0], processed_data.shape[1])
     # Guardar las características preparadas en un archivo CSV
     processed_data.to_csv(output_path, index=False)
