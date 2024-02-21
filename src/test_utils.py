@@ -15,7 +15,7 @@ def test_exception_handler():
     Esta prueba asegura que cuando una función decorada lanza una excepción,
     el decorador `exception_handler` captura esa excepción y la registra correctamente.
     """
-   
+
     @exception_handler
     def error_function():
         raise ValueError("Error intencional")
