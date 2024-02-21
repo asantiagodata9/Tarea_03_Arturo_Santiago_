@@ -22,6 +22,7 @@ jobs:
         pip install joblib
         pip install catboost
         pip install pyyaml
+        pip install pytest
     - name: List Python files
       run: |
         git ls-files '*.py'
