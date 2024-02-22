@@ -23,6 +23,7 @@ jobs:
         pip install catboost
         pip install pyyaml
         pip install pytest
+        pip install -r requirements.txt
     - name: List Python files
       run: |
         git ls-files '*.py'
