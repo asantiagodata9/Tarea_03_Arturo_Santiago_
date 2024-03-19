@@ -24,4 +24,4 @@ test_utils.py .                                                                 
 
 ## Arquitectura
 
-![Arquitectura del Producto de Datos](Arquitectura/Arquitectura.drawio.png.png)
+![Arquitectura del Producto de Datos](Arquitectura/Arquitectura.drawio.png)
